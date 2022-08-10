@@ -5,7 +5,7 @@ if(!$conn) {
     exit;
 }
 
-$result = pg_query($conn, "select * from licitacao where dataproposta::date = '2022-02-23'");
+$result = pg_query($conn, "select * from licitacao where dataproposta = '2022-02-23'");
 if(!$conn) {
     echo "Ocorreu um erro.\n";
     exit;
