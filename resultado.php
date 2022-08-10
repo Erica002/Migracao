@@ -24,10 +24,11 @@ if (isset($_POST['submit']))
         echo "<b><br>Objeto: <br></b>";
         echo $row['objeto'];
         echo "<b><br>Datas: <br></b>";
+        echo "Proposta - ";
         echo $row['dataproposta'];
-        echo "<br>";
+        echo "<br>Sessão - ";
         echo $row['datasessao'];
-        echo "<br>";
+        echo "<br><br>";
     }
 }
 else {
