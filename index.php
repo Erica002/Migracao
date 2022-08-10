@@ -2,7 +2,7 @@
 <html lang = "pt-br">
     <head>
         <meta charset="UTF-8">
-        <title>Teste</title>
+        <title>Consumindo API</title>
     </head>
     <body>
         <?php
@@ -21,22 +21,27 @@
 
         //cria a conexão com o postgres
         $conn = pg_connect("host = localhost port = 5432 dbname = dou user = postgres password = postgres");
-        
+
+            //
+            $resultadoproposta;
+            $resultadosessao;
             //laço para percorrer o vetor com os dados das licitacoes
-        foreach ($resultado->licitacoes as $licitacao) {
+            foreach ($resultado->licitacoes as $licitacao) {
+            
+                foreach ($licitacao->datas->Propostas as $data) {
+                    foreach ($licitacao->datas->Sessao as $datasessao) {
+                        $resultadoproposta = $data->data;
+                        $resultadosessao = $datasessao->data;
             //exibe as informacoes que são armazenadas no vetor datas
             //var_dump($licitacao->datas);
-            foreach ($licitacao->datas->Propostas as $data) {
-                foreach ($licitacao->datas->Sessao as $datasessao) {
-                    //insere na tabela licitação, no postgres, os dados contidos no arquivo JSON
-                    $result = pg_query($conn, "INSERT INTO licitacao (orgao, titulo, estado, cidade, objeto, dataproposta, datasessao) VALUES ('$licitacao->orgao_clean', '$licitacao->titulo', '$licitacao->estado', '$licitacao->cidade', '$licitacao->objeto', '$data->data', '$datasessao->data')");
-                }
+                }       
+            }   
+            $dataproposta = $resultadoproposta;
+            $sessaodata =$resultadosessao;
+            //insere na tabela licitação, no postgres, os dados contidos no arquivo JSON
+            $result = pg_query($conn, "INSERT INTO licitacao (orgao, titulo, estado, cidade, objeto, dataproposta,datasessao) VALUES ('$licitacao->orgao', '$licitacao->titulo', '$licitacao->estado', '$licitacao->cidade', '$licitacao->objeto', '$dataproposta', '$sessaodata')"); 
 
-            }
-            
-        }
-
-        
+        }        
         ?> 
     </body>
 </html>
