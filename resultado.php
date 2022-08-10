@@ -1,6 +1,6 @@
 <?php
 $db = pg_connect("host = localhost port = 5432 dbname = dou user = postgres password = postgres");
-$query = "SELECT * FROM licitacao where dataproposta::date = '$_POST[dataproposta]'";
+$query = "SELECT * FROM licitacao where dataproposta = '$_POST[dataproposta]'";
 $result = pg_query($db, $query);
 //$row = pg_fetch_assoc($result);
 if (isset($_POST['submit']))
